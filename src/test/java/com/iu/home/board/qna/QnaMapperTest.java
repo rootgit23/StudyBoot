@@ -19,29 +19,29 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.iu.home.util.Pager;
 
-@SpringBootTest
-@Transactional
+//@SpringBootTest
+//@Transactional
 class QnaMapperTest {
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
-	@Value("${my.default}")
+	//@Value("${my.default}")
 	private String app;
 	
-	@Autowired
+	//@Autowired
 	private QnaMapper qnaMapper;
 	
 	private QnaVO qnaVO;
 	
-	@BeforeAll
+	//@BeforeAll
 	static void befoAll() {
 		System.out.println("전체 Test 실행전 !!!!");
 	}
 	
-	@AfterAll
+	//@AfterAll
 	static void afterAll() {
 		System.out.println("전체 Test 실행 후 !!!!");
 	}
 	
-	@BeforeEach
+	//@BeforeEach
 	void beforeEach() {
 		System.out.println("Test 메서드 실행 전");
 		qnaVO = new QnaVO();
@@ -49,12 +49,12 @@ class QnaMapperTest {
 		qnaVO.setContents("contents");
 	}
 	
-	@AfterEach
+	//@AfterEach
 	void afterEach() {
 		System.out.println("Test 메서드 실행 후");
 	}
 	
-	@Test
+	//@Test
 	//@Rollback(false)
 	void test2() throws Exception {
 		//qnaMapper.setUpdate(qnaVO);

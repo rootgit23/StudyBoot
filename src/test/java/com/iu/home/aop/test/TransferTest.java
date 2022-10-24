@@ -5,14 +5,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-@SpringBootTest
+//@SpringBootTest
 class TransferTest {
-	@Autowired
+	//@Autowired
 	private Transeport transeport;
-	@Autowired
+	//@Autowired
 	private Card card;
 
-	@Test
+	//@Test
 	void test() {
 		
 		transeport.takeBus();
