@@ -13,6 +13,7 @@
 	<h3>Title : ${vo.title }</h3>
 	<c:forEach items="${vo.qnaFiles }" var="fileVO">
 		<img alt="" src="/file/qna/${fileVO.fileName }">
+		<a href="/fileDown/qna?fileNum=${fileVO.fileNum }">${fileVO.oriName }</a>
 	</c:forEach>
 
 </body>
