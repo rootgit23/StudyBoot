@@ -68,5 +68,23 @@ public class QnaService {
 	public QnaFileVO getFileDetail(QnaFileVO qnaFileVO) throws Exception{
 		return qnaMapper.getFileDetail(qnaFileVO);
 	}
+	
+	public QnaVO getUpdate(QnaVO qnaVO) throws Exception{
+		return qnaMapper.getUpdate(qnaVO);
+	}
+	
+	public QnaFileVO fileDelete(QnaFileVO qnaFileVO) throws Exception{
+		qnaFileVO = qnaMapper.fileDelete(qnaFileVO);
+		int result = qnaMapper.dbFileDelete(qnaFileVO);
+		if(result == 1) {
+			File file = new File(path,qnaFileVO.getFileName());
+			file.delete();
+			return qnaFileVO;
+		}
+		else {
+			return qnaFileVO;
+		}
+		
+	}
 
 }

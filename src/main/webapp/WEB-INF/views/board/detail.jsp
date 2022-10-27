@@ -10,7 +10,7 @@
 </head>
 <body>
 	<h1>Detail Page</h1>
-	<h3>Title : ${vo.title }</h3>
+	<h3><a href="./update?num=${vo.num }">Title : ${vo.title }</a></h3>
 	<c:forEach items="${vo.qnaFiles }" var="fileVO">
 		<img alt="" src="/file/qna/${fileVO.fileName }">
 		<a href="/fileDown/qna?fileNum=${fileVO.fileNum }">${fileVO.oriName }</a>
