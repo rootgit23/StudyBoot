@@ -9,10 +9,19 @@
 
 <c:import url="./temp/boot.jsp"></c:import>
 <link href="/css/test.css" rel="stylesheet">
-
+<script defer src="/js/test.js"></script>
 </head>
 <body>
 	<h1>Index page</h1>
+	<c:choose>
+		<c:when test="${not empty member }">
+			<a href="/member/logOut">LogOut</a>
+		</c:when>
+		<c:otherwise>
+			<a href="/member/login">LogIn</a>
+			<a href="/member/join">Join</a>
+		</c:otherwise>
+	</c:choose>
 	<img src="./images/winter.jpg" id="id1">
 	<a href="./qna/list">QNA</a>
 	<div>
@@ -22,6 +31,14 @@
 		<a href="/fileDown/notice?fileNum=2">NoticeDown</a>
 	</div>
 
+	<button id="btn">Click</button>
+	<button class="buttons">Btn1</button>
+	<button class="buttons">Btn2</button>
+	<button class="buttons">Btn3</button>
+	
+	<div id="test">
+
+	</div>
 
 </body>
 </html>
