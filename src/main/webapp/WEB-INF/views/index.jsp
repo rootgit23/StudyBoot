@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,8 +14,12 @@
 </head>
 <body>
 	<h1>Index page</h1>
+	<h1><spring:message code="hi" var="h"></spring:message></h1>
+	<h1><spring:message code="test" text="code가 없을때 출력하는 메시지"></spring:message></h1>
 	<c:choose>
 		<c:when test="${not empty member }">
+			<h3><spring:message code="welcome" arguments="${member.name }"></spring:message></h3>
+			<h3><spring:message code="welcome2" arguments="${member.id },${member.name }" argumentSeparator=","></spring:message></h3>
 			<a href="/member/logOut">LogOut</a>
 		</c:when>
 		<c:otherwise>

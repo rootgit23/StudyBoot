@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,14 +13,31 @@
 </head>
 <body>
 <h1>Join Page</h1>
+	<form:form action="/member/join" modelAttribute="memberVO" method="post">
 	<form action="/member/join" method="post" id="join">
+		<form:input path="id" id="jid"/>
+		<form:errors path="id" id="inputIdResult"></form:errors>
 		<input type="text" name="id" id="jid">
+		<form:password path="pw" id="jpw"/>
+		<form:errors path="pw"></form:errors>
 		<input type="text" name="pw" id="jpw">
+		<form:password path="pwCheck" id="jppw"/>
+		<form:errors path="pwCheck"></form:errors>
 		<input type="text" id="jppw">
+		<form:input path="name" id="jname"/>
+		
+		<div>
+			<form:errors path="name">
+				
+			</form:errors>
+		</div>
 		<input type="text" name="name" id="jname">
+		<form:input path="email" id="jemail"/>
+		<form:errors path="email"></form:errors>
 		<input type="text" name="email" id="jemail">
 		<button type="button" id="joinButton">가입</button>
 	</form>
+	</form:form>
 
 	<div>
 		<div>

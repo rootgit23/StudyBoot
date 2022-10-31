@@ -1,14 +1,21 @@
 package com.iu.home.member;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -49,17 +56,31 @@ public class MemberController {
 	}
 	
 	@GetMapping("join")
-	public String getJoin() throws Exception{
+	public String getJoin(@ModelAttribute MemberVO memberVO) throws Exception{
 		return "member/join";
 	}
 	
 	@PostMapping("join")
-	public String setJoin(MemberVO memberVO) throws Exception{
-		int result = memberService.setJoin(memberVO);
-		if(result == 1) {
+	public String setJoin(@Valid MemberVO memberVO,BindingResult bindingResult,ModelAndView mv) throws Exception{
+		//int result = memberService.setJoin(memberVO);
+		//if(result == 1) {
+			//return "member/login";
+		//}
+		boolean check = memberService.getMemberError(memberVO, bindingResult);
+		if(check) {
+			List<FieldError> errors = bindingResult.getFieldErrors();
+			for(FieldError fieldError:errors) {
+				log.info("FieldError => {} ", fieldError);
+				log.info("Field => {} ", fieldError.getField());
+				log.info("Message => {}",fieldError.getRejectedValue());
+				log.info("Default => {}",fieldError.getDefaultMessage());
+				log.info("Code => {}",fieldError.getCode());
+				mv.addObject(fieldError.getField(), fieldError.getDefaultMessage());
+				log.info("===========================================");
+			}
 			return "member/login";
 		}
-		return "member/login";
+		return "redirect:../";
 	}
 	
 	@PostMapping("idCheck")
