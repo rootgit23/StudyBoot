@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>  
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,17 +17,29 @@
 	<h1>Index page</h1>
 	<h1><spring:message code="hi" var="h"></spring:message></h1>
 	<h1><spring:message code="test" text="code가 없을때 출력하는 메시지"></spring:message></h1>
-	<c:choose>
-		<c:when test="${not empty member }">
-			<h3><spring:message code="welcome" arguments="${member.name }"></spring:message></h3>
-			<h3><spring:message code="welcome2" arguments="${member.id },${member.name }" argumentSeparator=","></spring:message></h3>
-			<a href="/member/logOut">LogOut</a>
-		</c:when>
-		<c:otherwise>
-			<a href="/member/login">LogIn</a>
-			<a href="/member/join">Join</a>
-		</c:otherwise>
-	</c:choose>
+	<div>
+			<!-- 로그인 성공 -->
+			<sec:authorize access="isAuthenticated()">
+				<sec:authentication property="Principal" var="member"/>
+				<h3><spring:message code="welcome" arguments="${member.name }"></spring:message></h3>
+				<h3><spring:message code="welcome2" arguments="${member.id },${member.name }" argumentSeparator=","></spring:message></h3>
+				<a href="./member/mypage">myPage</a>
+			</sec:authorize>
+		
+			<!-- 로그인 실패 -->
+			<sec:authorize access="!isAuthenticated()">
+				<a href="/member/login">LogIn</a>
+				<a href="/member/join">Join</a>
+			</sec:authorize>
+			
+			<sec:authorize url="/admin">
+				<a href="/admin">Go Admin</a>
+			</sec:authorize>
+			
+			<sec:authorize access="hasAnyRole('ADMIN','MANAGER')">
+				<a href="/manager">Go Manager</a>
+			</sec:authorize>
+	</div>
 	<img src="./images/winter.jpg" id="id1">
 	<a href="./qna/list">QNA</a>
 	<div>

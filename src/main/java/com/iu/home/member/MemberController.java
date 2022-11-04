@@ -33,27 +33,28 @@ public class MemberController {
 		return "member/login";
 	}
 	
-	@PostMapping("login")
-	public String getLogin(HttpServletRequest request,MemberVO memberVO) throws Exception{
-		log.info("pw:{}",memberVO.getPw());
-		HttpSession session = request.getSession();
-		memberVO = memberService.getLogin(memberVO);
-		if(memberVO != null) {
-			log.info("로그인 성공");
-			session.setAttribute("member", memberVO);
-			return "redirect:/";
-		}
-		else {
-			log.info("로그인 실패");
-			return "";
-		}
-	}
+	//@PostMapping("login")
+	//public String getLogin(HttpServletRequest request,MemberVO memberVO) throws Exception{
+		//log.info("pw:{}",memberVO.getPw());
+		//HttpSession session = request.getSession();
+		//memberVO = memberService.getLogin(memberVO);
+		//if(memberVO != null) {
+			//log.info("로그인 성공");
+			//session.setAttribute("member", memberVO);
+			//return "redirect:/";
+		//}
+		//else {
+			//log.info("로그인 실패");
+			//return "";
+		//}
+	//}
 	
-	@GetMapping("logOut")
-	public String getLogOut(HttpSession session) throws Exception{
-		session.invalidate();
-		return "redirect:/";
-	}
+	//@GetMapping("logOut")
+	//public String getLogOut(HttpSession session) throws Exception{
+		//log.info("======== 내가 만든 logout 메서드=======");
+		//session.invalidate();
+		//return "redirect:/";
+	//}
 	
 	@GetMapping("join")
 	public String getJoin(@ModelAttribute MemberVO memberVO) throws Exception{
@@ -93,6 +94,11 @@ public class MemberController {
 		else {
 			return 1;
 		}
+	}
+	
+	@GetMapping("mypage")
+	public void getMyPage() throws Exception{
+		
 	}
 
 }

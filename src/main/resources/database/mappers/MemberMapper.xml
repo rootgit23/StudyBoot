@@ -4,16 +4,33 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.iu.home.member.MemberMapper">
 	
-	<select id="getLogin" parameterType="MemberVO" resultType="MemberVO">
-		SELECT * FROM MEMBER WHERE ID=#{id} AND PW=#{pw}
+	<select id="getLogin" parameterType="String" resultMap="getLoginResult">
+		SELECT M.*,R.* 
+		FROM MEMBER M
+			INNER JOIN
+			MEMBER_ROLE MR
+			ON M.ID = MR.ID
+			INNER JOIN
+			ROLE R
+			ON MR.NUM = R.NUM
+		WHERE M.ID=#{username}
 	</select>
+	<resultMap type="MemberVO" id="getLoginResult">
+		<id column="ID" property="id"/>
+		<result column="PW" property="pw"/>
+		<result column="NAME" property="name"/>
+		<result column="EMAIL" property="email"/>
+		<collection property="roleVOs" javaType="List" ofType="RoleVO">
+			<result column="ROLENAME" property="roleName"/>
+		</collection>
+	</resultMap>
 	
 	<insert id="setJoin" parameterType="MemberVO">
-		INSERT INTO MEMBER VALUES (#{id},#{pw},#{name},#{email},true)
+		INSERT INTO MEMBER VALUES (#{id},#{pw},#{name},#{email},1)
 	</insert>
 	
 	<insert id="setMemberRole" parameterType="MemberVO">
-		INSERT INTO MEMBER_ROLE VALUES (#{id},1)
+		INSERT INTO MEMBER_ROLE VALUES (#{id},(SELECT NUM FROM ROLE WHERE ROLENAME='ROLE_MEMBER'))
 	</insert>
 	
 	<select id="getIdCheck" parameterType="MemberVO" resultType="MemberVO">

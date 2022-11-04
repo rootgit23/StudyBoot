@@ -12,21 +12,25 @@ public class MemberService {
 	@Autowired
 	private MemberMapper memberMapper;
 	
-	public MemberVO getLogin(MemberVO memberVO) throws Exception{
-		return memberMapper.getLogin(memberVO);
-	}
+	//로그인 처리는 Security에서
+	//public MemberVO getLogin(MemberVO memberVO) throws Exception{
+		//return memberMapper.getLogin(memberVO);
+	//}
 	
 	public int setJoin(MemberVO memberVO) throws Exception{
 		int result = memberMapper.setJoin(memberVO);
-		if(result == 1) {
-			result = memberMapper.setMemberRole(memberVO);
-			if(result < 1) {
-				throw new Exception();
-			}
+		
+		if(result < 1) {
+			throw new Exception();
+	
 		}
-		else if (result < 1) {
+		
+		result = memberMapper.setMemberRole(memberVO);
+		
+		if (result < 1) {
 			throw new Exception();
 		}
+		
 		return result;
 	}
 	
